@@ -128,8 +128,9 @@ const appState = {
   userAns: {},
   question:[],
 };
-
-// State manipulation functions
+////////////////////////////////////////////////////////////////////
+//////////         State manipulation functions       //////////////
+/////////////////////////////////////////////////////////////////////
 //increment Question position
 function incQuestionPos(state){
   return state.curPos++;
@@ -139,9 +140,11 @@ function incQuestionPos(state){
 function incIncorrectAns(state){
   return state.crntIncrct++;
 }
+//calculates the number of Correct answers
 function calculateCorrectAns(state){
   return state.curPos - state.crntIncrct;
 }
+//keep tracks of user input for a specific question
 function addUserAns(state, qID, val) {
   state.userAns[qID] = val;
   return state.userAns;
@@ -174,7 +177,12 @@ function addRandQuestion(state){
   return state.question;
 }
 
-// Render function(s)
+////////////////////////////////////////////////////////////////////
+//////////////         Render Functions             //////////////
+/////////////////////////////////////////////////////////////////////
+
+
+//render how the DOM will look like
 function render(state , element) {
   const renderStart =
   `<div class="content" action="index.html" method="post">
@@ -232,7 +240,7 @@ function render(state , element) {
   }
 };
 
-//render Answer
+//show the green when correct and red when incorrect
 function renderAnswer(state, element) {
   const quest = state.question.find(obj => state.question.indexOf(obj) === (state.curPos - 1));
   // const condition = (state.userAns[quest.qstnID] === quest.crctAnsr) ? 'right' :
@@ -247,9 +255,13 @@ function renderAnswer(state, element) {
   });
 };
 
+//show continue button 
 function renderContinue(state,element){
   element.removeClass('hidden');
 }
+
+//render how the score tracker and question position tracker 
+//will look like on DOM
 function renderScoreTracker(state,element){
   const score = 
       `<h2>Current Score</h2>
@@ -265,6 +277,8 @@ function renderScoreTracker(state,element){
   element.html(score);
 }
 
+//show the Score tracker and question tracker when you are asked
+//questions
 function renderHideScore(state,element){
   if(state.curPos === 0 || state.curPos === state.question.length)
     element.addClass('hidden');
@@ -273,7 +287,11 @@ function renderHideScore(state,element){
 }
 
 
-// Event handlers
+////////////////////////////////////////////////////////////////////
+//////////              Event Handlers                //////////////
+/////////////////////////////////////////////////////////////////////
+
+//START THE QUIZ BUTTOn
 function startQuiz(state){
   $('.main-content').on('click', '.js-start', function(event){
  
@@ -282,6 +300,8 @@ function startQuiz(state){
     renderScoreTracker(state,$('.js-side-content'));
   });
 }
+
+//SUBMIT THE ANSWER BUTTON
 function submitAnswer(state){
   $('.main-content').on('submit',function(event){
       event.preventDefault();
@@ -291,13 +311,19 @@ function submitAnswer(state){
       renderContinue(state, $('.main-content .js-continue'));
   });
 }
+
+//CONTINUE THE QUIZ BUTTON
 function continueQuiz(state){
   $('.main-content').on('click','.js-continue',function(event){
     incQuestionPos(state);
     render(state,$('.main-content'));
   })
 }
-//callback function
+
+
+////////////////////////////////////////////////////////////////////
+//////////                 callback function           //////////////
+/////////////////////////////////////////////////////////////////////
 $(function() {
   addRandQuestion(appState);
   render(appState,$('.main-content'));
