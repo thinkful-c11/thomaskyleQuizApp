@@ -167,7 +167,12 @@ nav a:hover {
 .inline-block {
   display: inline-block;
 }
-
+.js-green {
+  background: green;
+}
+.js-red {
+  background: red;
+}
 
 
 
