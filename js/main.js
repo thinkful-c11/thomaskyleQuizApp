@@ -1,126 +1,4 @@
 // appState
-const questions = [
-  {
-    qstnID: 1,
-    question: `Question as a string. 1`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 2,
-    question: `Question as a string. 2`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 3,
-    question: `Question as a string. 3`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 4,
-    question: `Question as a string. 4`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 5,
-    question: `Question as a string. 5`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 6,
-    question: `Question as a string. 6`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 7,
-    question: `Question as a string. 7`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 8,
-    question: `Question as a string. 8`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 9,
-    question: `Question as a string. 9`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-    {
-    qstnID: 10,
-    question: `Question as a string. 10`,
-    answers: {
-      a: 'String of answer A',
-      b: 'String of answer B',
-      c: 'String of answer C',
-      d: 'String of answer D',
-      e: 'String of answer E'
-    },
-    crctAnsr: 'a'
-  },
-];
 const appState = {
   curPos: 0,
   curCrct:0 ,
@@ -136,9 +14,18 @@ function incQuestionPos(state){
   return state.curPos++;
 }
 
+
 //increment Correct Answer Counter
 function incIncorrectAns(state){
   return state.crntIncrct++;
+}
+// Reset the quiz back to beginning.
+function setToZero(state) {
+  state.curPos = 0;
+  state.userAns = {};
+  state.question = [];
+  state.curCrct = 0;
+  state.crntIncrct = 0;
 }
 //calculates the number of Correct answers
 function calculateCorrectAns(state){
@@ -195,40 +82,31 @@ function render(state , element) {
               <h3>${quest.question}</h3>
               <ul class="list-block">
                 <li class="liQuest">
-                  <label for="ansr-a">A.</label>
                   <input type="radio" name="answer" value="a" id="ansr-a"/>
-                  <span>${quest.answers.a}</span>
+                  <label for="ansr-a">${quest.answers.a}</label>
                 </li>
                 <li class="liQuest">
-                  <label for="ansr-b">B.</label>
                   <input type="radio" name="answer" value="b" id="ansr-b"/>
-                  <span>${quest.answers.b}</span>
+                  <label for="ansr-b">${quest.answers.b}</label>
                 </li>
                 <li class="liQuest">
-                  <label for="ansr-c">C.</label>
                   <input type="radio" name="answer" value="c" id="ansr-c"/>
-                  <span>${quest.answers.c}</span>
+                  <label for="ansr-c">${quest.answers.c}</label>
                 </li>
                 <li class="liQuest">
-                  <label for="ansr-d">D.</label>
                   <input type="radio" name="answer" value="d" id="ansr-d"/>
-                  <span>${quest.answers.d}</span>
-                </li>
-                <li class="liQuest">
-                  <label for="ansr-e">E.</label>
-                  <input type="radio" name="answer" value="e" id="ansr-e"/>
-                  <span>${quest.answers.e}</span>
+                  <label for="ansr-d">${quest.answers.d}</label>
                 </li>
               </ul>
               <button class="btn-content js-submit" type="submit" name="btn-answer">Submit</button>
-              <button class="btn-content" type="reset" name="btn-reset-qstn">Reset</button>
+              <button class="btn-content js-reset" type="reset" name="btn-reset-qstn">Reset</button>
               <button class="btn-content js-continue" type="button" name="btn-continue-qstn">Continue</button>
             </form>`
   };
   const renderEnd = `<div class="content">
                       <h1>These are your results!</h1>
                       <p>You answered ${state.curCrct} questions out of ${state.question.length} correctly.</p>
-                      <button class="btn-content" type="reset" name="btn-reset-final">Reset</button>
+                      <button class="btn-content js-reset" type="reset" name="btn-reset-final">Reset</button>
                     </div>`
   renderHideScore(state,$('.js-side-content'));
   if (appState.curPos === 0) {
@@ -255,7 +133,7 @@ function renderAnswer(state, element) {
   });
 };
 
-//show continue button 
+//show continue button
 function renderContinue(state,element){
   element.show();
 }
@@ -264,10 +142,10 @@ function renderSubmit(state,element){
   element.hide();
 }
 
-//render how the score tracker and question position tracker 
+//render how the score tracker and question position tracker
 //will look like on DOM
 function renderScoreTracker(state,element){
-  const score = 
+  const score =
       `<h2>Current Score</h2>
         <h3>Question ${state.curPos} out of ${state.question.length}</h3>
         <ul class="list-block">
@@ -300,7 +178,7 @@ function renderHideScore(state,element){
 //START THE QUIZ BUTTOn
 function startQuiz(state){
   $('.main-content').on('click', '.js-start', function(event){
- 
+
     incQuestionPos(state);
     render(state,$('.main-content'));
     renderScoreTracker(state,$('.js-side-content'));
@@ -318,7 +196,14 @@ function submitAnswer(state){
       renderContinue(state, $('.main-content .js-continue'));
   });
 }
-
+//RESET THE QUIZ BUTTON
+function resetQuiz(state) {
+  $('.main-content').on('click', '.js-reset', function(event) {
+    setToZero(state);
+    addRandQuestion(state);
+    render(state, $('.main-content'));
+  })
+}
 //CONTINUE THE QUIZ BUTTON
 function continueQuiz(state){
   $('.main-content').on('click','.js-continue',function(event){
@@ -335,7 +220,7 @@ $(function() {
   addRandQuestion(appState);
   render(appState,$('.main-content'));
   startQuiz(appState);
+  resetQuiz(appState);
   submitAnswer(appState);
   continueQuiz(appState);
 });
-
