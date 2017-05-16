@@ -220,9 +220,9 @@ function render(state , element) {
                   <span>${quest.answers.e}</span>
                 </li>
               </ul>
-              <button class="btn-content" type="submit" name="btn-answer">Submit</button>
+              <button class="btn-content js-submit" type="submit" name="btn-answer">Submit</button>
               <button class="btn-content" type="reset" name="btn-reset-qstn">Reset</button>
-              <button class="btn-content hidden js-continue" type="button" name="btn-continue-qstn">Continue</button>
+              <button class="btn-content js-continue" type="button" name="btn-continue-qstn">Continue</button>
             </form>`
   };
   const renderEnd = `<div class="content">
@@ -257,7 +257,11 @@ function renderAnswer(state, element) {
 
 //show continue button 
 function renderContinue(state,element){
-  element.removeClass('hidden');
+  element.show();
+}
+
+function renderSubmit(state,element){
+  element.hide();
 }
 
 //render how the score tracker and question position tracker 
@@ -265,7 +269,7 @@ function renderContinue(state,element){
 function renderScoreTracker(state,element){
   const score = 
       `<h2>Current Score</h2>
-        <h3>Question ${state.curPos} out of 12</h3>
+        <h3>Question ${state.curPos} out of ${state.question.length}</h3>
         <ul class="list-block">
           <li>
             <h4>${state.curCrct} Correct</h4>
@@ -280,10 +284,12 @@ function renderScoreTracker(state,element){
 //show the Score tracker and question tracker when you are asked
 //questions
 function renderHideScore(state,element){
-  if(state.curPos === 0 || state.curPos === state.question.length)
-    element.addClass('hidden');
+  if(state.curPos === 0 || state.curPos === state.question.length+1)
+    element.hide();
   else
-    element.removeClass('hidden');
+    element.show();
+  // console.log(`curPos ${state.curPos}`);
+  // console.log(`question length ${state.question.length}`);
 }
 
 
@@ -308,6 +314,7 @@ function submitAnswer(state){
       addUserAns(state, $('.main-content form').attr('questID'), $('.main-content .liQuest input:checked').val());
       renderAnswer(state,$('.liQuest'));
       renderScoreTracker(state,$('.js-side-content'));
+      renderSubmit(state,$('.main-content .js-submit'));
       renderContinue(state, $('.main-content .js-continue'));
   });
 }
