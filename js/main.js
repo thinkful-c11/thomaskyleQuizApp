@@ -99,14 +99,14 @@ function render(state , element) {
                 </li>
               </ul>
               <button class="btn-content js-submit" type="submit" name="btn-answer">Submit</button>
-              <button class="btn-content js-reset" type="reset" name="btn-reset-qstn">Reset</button>
+              <button class="btn-content js-reset" type="reset" name="btn-reset-qstn">Restart Quiz</button>
               <button class="btn-content js-continue" type="button" name="btn-continue-qstn">Continue</button>
             </form>`
   };
   const renderEnd = `<div class="content">
                       <h1>These are your results!</h1>
                       <p>You answered ${state.curCrct} questions out of ${state.question.length} correctly.</p>
-                      <button class="btn-content js-reset" type="reset" name="btn-reset-final">Reset</button>
+                      <button class="btn-content js-reset" type="reset" name="btn-reset-final">Restart Quiz</button>
                     </div>`
   renderHideScore(state,$('.js-side-content'));
   if (appState.curPos === 0) {
