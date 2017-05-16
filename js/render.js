@@ -27,11 +27,7 @@ function renderContinue(state,element){
 function renderSubmit(state,element){
   element.hide();
 }
-// function renderGreen(state,element){
-//   if(!element.hasClass("js-red")){
-//     element.addClass("js-green");
-//   }
-// }
+
 //render how the score tracker and question position tracker
 //will look like on DOM
 function renderScoreTracker(state,element){
@@ -61,23 +57,23 @@ function render(state , articleElement,asideElement) {
   </div>`;
   const renderQuest = function() {
     const quest = state.question.find(obj => state.question.indexOf(obj) === (state.curPos - 1));
-    return `<form questID="${quest.qstnID}" class="content" action="index.html" method="post" required>
+    return `<form questID="${quest.qstnID}" class="content" action="index.html" method="post" >
               <h3>${quest.question}</h3>
               <ul class="list-block">
                 <li class="liQuest">
-                  <input type="radio" name="answer" value="a" id="ansr-a"/>
+                  <input type="radio" name="answer" value="a" id="ansr-a" required/>
                   <label for="ansr-a">${quest.answers.a}</label>
                 </li>
                 <li class="liQuest">
-                  <input type="radio" name="answer" value="b" id="ansr-b"/>
+                  <input type="radio" name="answer" value="b" id="ansr-b" required/>
                   <label for="ansr-b">${quest.answers.b}</label>
                 </li>
                 <li class="liQuest">
-                  <input type="radio" name="answer" value="c" id="ansr-c"/>
+                  <input type="radio" name="answer" value="c" id="ansr-c" required/>
                   <label for="ansr-c">${quest.answers.c}</label>
                 </li>
                 <li class="liQuest">
-                  <input type="radio" name="answer" value="d" id="ansr-d"/>
+                  <input type="radio" name="answer" value="d" id="ansr-d" required/>
                   <label for="ansr-d">${quest.answers.d}</label>
                 </li>
               </ul>

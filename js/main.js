@@ -64,7 +64,7 @@ function addListeners(state) {
       event.preventDefault();
       addUserAns(state, $('.main-content form').attr('questID'), $('.main-content .liQuest input:checked').val());
       render(state,$('.main-content'),$('.js-side-content'));
-      //renderGreen(state,$('.main-content .liQuest'))
+
   });
   //addReset
   $('.main-content').on('click', '.js-reset', function(event) {
