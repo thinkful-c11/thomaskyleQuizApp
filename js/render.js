@@ -3,8 +3,55 @@
 /////////////////////////////////////////////////////////////////////
 
 
+
+
+//show the green when correct and red when incorrect
+function renderAnswer(state, articleElement) {
+  const quest = state.question.find(obj => state.question.indexOf(obj) === (state.curPos - 1));
+  articleElement.each(function(){
+    if ($(this).find('input').attr('value') === quest.crctAnsr) {
+      $(this).addClass('js-green');
+    } else if (state.userAns[quest.qstnID] !== quest.crctAnsr && state.userAns[quest.qstnID]===$(this).find('input').attr('value')) {
+      $(this).addClass('js-red');
+      incIncorrectAns(state);
+    }
+    state.curCrct = calculateCorrectAns(state);
+  });
+};
+
+//show continue button
+function renderContinue(state,element){
+  element.removeClass('hidden');
+}
+
+function renderSubmit(state,element){
+  element.hide();
+}
+// function renderGreen(state,element){
+//   if(!element.hasClass("js-red")){
+//     element.addClass("js-green");
+//   }
+// }
+//render how the score tracker and question position tracker
+//will look like on DOM
+function renderScoreTracker(state,element){
+  const score =
+      `<h2>Current Score</h2>
+        <h3>Question ${state.curPos} out of ${state.question.length}</h3>
+        <ul class="list-block">
+          <li>
+            <h4>${state.curCrct} Correct</h4>
+          </li>
+          <li>
+            <h4>${state.crntIncrct} Incorrect</h4>
+          </li>
+        </ul>`
+  element.html(score);
+}
+
 //render how the DOM will look like
-function render(state , element) {
+function render(state , articleElement,asideElement) {
+  isAnswerShown(state);
   const renderStart =
   `<div class="content" action="index.html" method="post">
     <h2>Are you ready to take this VERY VERY RANDOM QUIZ?</h2>
@@ -39,65 +86,30 @@ function render(state , element) {
               <button class="btn-content js-reset" type="reset" name="btn-reset-qstn">Restart Quiz</button>
             </form>`
   };
+  //how the end will look like
   const renderEnd = `<div class="content">
                       <h1>These are your results!</h1>
                       <p>You answered ${state.curCrct} questions out of ${state.question.length} correctly.</p>
                       <button class="btn-content js-reset" type="reset" name="btn-reset-final">Restart Quiz</button>
-                    </div>`
+                    </div>`;
   if (appState.curPos === 0) {
-    return element.html(renderStart);
-  } else if (appState.curPos > 0 && appState.curPos <= appState.question.length) {
-    element.html(renderQuest);
+    articleElement.html(renderStart);
+    asideElement.hide();
+  } else if (appState.curPos > 0 && appState.curPos <= appState.question.length ) {
+      //submit screen
+      if( state.displayAnswer===false){
+        articleElement.html(renderQuest);
+      }
+      else    ///continue screen
+      {
+        renderSubmit(state, articleElement.find('.js-submit'));
+        renderContinue(state, articleElement.find('.js-continue'));
+        renderAnswer(state,articleElement.find('.liQuest'));
+      }
+      renderScoreTracker(state,asideElement);
+      asideElement.show();
   } else {
-    return element.html(renderEnd);
+    articleElement.html(renderEnd);
+    asideElement.hide();
   }
 };
-
-//show the green when correct and red when incorrect
-function renderAnswer(state, element) {
-  const quest = state.question.find(obj => state.question.indexOf(obj) === (state.curPos - 1));
-  element.each(function(){
-    if ($(this).find('input').attr('value') === quest.crctAnsr) {
-      $(this).addClass('js-green');
-    } else if (state.userAns[quest.qstnID] !== quest.crctAnsr && state.userAns[quest.qstnID]===$(this).find('input').attr('value')) {
-      $(this).addClass('js-red');
-      incIncorrectAns(state);
-    }
-    state.curCrct = calculateCorrectAns(state);
-  });
-};
-
-//show continue button
-function renderContinue(state,element){
-  element.removeClass('hidden');
-}
-
-function renderSubmit(state,element){
-  element.hide();
-}
-
-//render how the score tracker and question position tracker
-//will look like on DOM
-function renderScoreTracker(state,element){
-  const score =
-      `<h2>Current Score</h2>
-        <h3>Question ${state.curPos} out of ${state.question.length}</h3>
-        <ul class="list-block">
-          <li>
-            <h4>${state.curCrct} Correct</h4>
-          </li>
-          <li>
-            <h4>${state.crntIncrct} Incorrect</h4>
-          </li>
-        </ul>`
-  element.html(score);
-}
-
-//show the Score tracker and question tracker when you are asked
-//questions
-function renderHideScore(state,element){
-  if(state.curPos === 0 || state.curPos === state.question.length+1)
-    element.hide();
-  else
-    element.show();
-}

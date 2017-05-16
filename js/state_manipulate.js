@@ -53,3 +53,11 @@ function addRandQuestion(state, qNum, dataArray){
  }
   return state.question;
 }
+//displayAnswer
+function isAnswerShown(state){
+  if(state.curPos === Object.keys(state.userAns).length){
+    state.displayAnswer = true;
+  }else{
+    state.displayAnswer = false;
+  }
+}
