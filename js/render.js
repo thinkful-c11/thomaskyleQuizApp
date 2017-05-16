@@ -35,8 +35,8 @@ function render(state , element) {
                 </li>
               </ul>
               <button class="btn-content js-submit" type="submit" name="btn-answer">Submit</button>
-              <button class="btn-content js-reset" type="reset" name="btn-reset-qstn">Restart Quiz</button>
               <button class="btn-content hidden js-continue" type="button" name="btn-continue-qstn">Continue</button>
+              <button class="btn-content js-reset" type="reset" name="btn-reset-qstn">Restart Quiz</button>
             </form>`
   };
   const renderEnd = `<div class="content">

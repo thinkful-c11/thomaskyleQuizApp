@@ -56,14 +56,14 @@ const questions = [
   },
     {
     qstnID: 6,
-    question: `What has 6 wheels and flies?`,
+    question: `In Rick & Morty, what is the robot's purpose?`,
     answers: {
-      a: 'airplane',
-      b: 'garbage truck',
-      c: 'Nothing',
+      a: 'Web Development',
+      b: 'Be a slave',
+      c: 'To pass butter',
       d: 'None of the above',
     },
-    crctAnsr: 'b'
+    crctAnsr: 'c'
   },
     {
     qstnID: 7,
