@@ -173,6 +173,9 @@ nav a:hover {
 .js-red {
   background: red;
 }
+#question-count {
+  width: 10em;
+}
 
 
 

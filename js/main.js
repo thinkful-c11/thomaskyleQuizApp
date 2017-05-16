@@ -51,9 +51,9 @@ function noDup(state, randID){
 }
 
 // add to question array
-function addRandQuestion(state){
+function addRandQuestion(state, qNum){
   let randID;
-  while(state.question.length<5){
+  while(state.question.length<qNum){
       randID = randQuestion(state);
       if(noDup(state,randID)){
         state.question.push(questions.find(el => el.qstnID === randID));
@@ -74,6 +74,8 @@ function render(state , element) {
   const renderStart =
   `<div class="content" action="index.html" method="post">
     <h2>Are you ready?</h2>
+    <label for="question-count">How many questions would you like to answer?</label><br>
+    <input type="number" name="how-many-questions" id="question-count" min="5" max="${questions.length}" placeholder="Chooose at least 5" /><br>
     <button class="btn-content js-start" type="button" name="btn-ready">I'm Ready</button>
   </div>`;
   const renderQuest = function() {
@@ -178,7 +180,7 @@ function renderHideScore(state,element){
 //START THE QUIZ BUTTOn
 function startQuiz(state){
   $('.main-content').on('click', '.js-start', function(event){
-
+    addRandQuestion(state, $('#question-count').val());
     incQuestionPos(state);
     render(state,$('.main-content'));
     renderScoreTracker(state,$('.js-side-content'));
@@ -200,7 +202,6 @@ function submitAnswer(state){
 function resetQuiz(state) {
   $('.main-content').on('click', '.js-reset', function(event) {
     setToZero(state);
-    addRandQuestion(state);
     render(state, $('.main-content'));
   })
 }
@@ -217,10 +218,12 @@ function continueQuiz(state){
 //////////                 callback function           //////////////
 /////////////////////////////////////////////////////////////////////
 $(function() {
-  addRandQuestion(appState);
   render(appState,$('.main-content'));
   startQuiz(appState);
   resetQuiz(appState);
   submitAnswer(appState);
   continueQuiz(appState);
 });
+
+// Refactor the renderHideScore(s)
+// Refactor each section.
