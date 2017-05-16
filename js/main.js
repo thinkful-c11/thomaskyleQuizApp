@@ -180,10 +180,14 @@ function renderHideScore(state,element){
 //START THE QUIZ BUTTOn
 function startQuiz(state){
   $('.main-content').on('click', '.js-start', function(event){
-    addRandQuestion(state, $('#question-count').val());
-    incQuestionPos(state);
-    render(state,$('.main-content'));
-    renderScoreTracker(state,$('.js-side-content'));
+    if($('#question-count').val()<1 || $('#question-count').val()>10){
+      alert("Enter Number between 1 and 10 (inclusive)");
+    }else{
+      addRandQuestion(state, $('#question-count').val());
+      incQuestionPos(state);
+      render(state,$('.main-content'));
+      renderScoreTracker(state,$('.js-side-content'));
+    }
   });
 }
 
