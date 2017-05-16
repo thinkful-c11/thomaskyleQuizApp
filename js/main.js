@@ -73,7 +73,7 @@ function addRandQuestion(state, qNum){
 function render(state , element) {
   const renderStart =
   `<div class="content" action="index.html" method="post">
-    <h2>Are you ready?</h2>
+    <h2>Are you ready to take this VERY VERY RANDOM QUIZ?</h2>
     <label for="question-count">How many questions would you like to answer?</label><br>
     <input type="number" name="how-many-questions" id="question-count" min="5" max="${questions.length}" placeholder="Chooose at least 5" /><br>
     <button class="btn-content js-start" type="button" name="btn-ready">I'm Ready</button>
@@ -102,7 +102,7 @@ function render(state , element) {
               </ul>
               <button class="btn-content js-submit" type="submit" name="btn-answer">Submit</button>
               <button class="btn-content js-reset" type="reset" name="btn-reset-qstn">Restart Quiz</button>
-              <button class="btn-content js-continue" type="button" name="btn-continue-qstn">Continue</button>
+              <button class="btn-content hidden js-continue" type="button" name="btn-continue-qstn">Continue</button>
             </form>`
   };
   const renderEnd = `<div class="content">
@@ -137,7 +137,7 @@ function renderAnswer(state, element) {
 
 //show continue button
 function renderContinue(state,element){
-  element.show();
+  element.removeClass('hidden');
 }
 
 function renderSubmit(state,element){
