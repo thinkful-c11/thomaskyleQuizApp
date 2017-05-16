@@ -88,10 +88,10 @@ function render(state , articleElement,asideElement) {
                       <p>You answered ${state.curCrct} questions out of ${state.question.length} correctly.</p>
                       <button class="btn-content js-reset" type="reset" name="btn-reset-final">Restart Quiz</button>
                     </div>`;
-  if (appState.curPos === 0) {
+  if (state.curPos === 0) {
     articleElement.html(renderStart);
     asideElement.hide();
-  } else if (appState.curPos > 0 && appState.curPos <= appState.question.length ) {
+  } else if (state.curPos > 0 && state.curPos <= state.question.length ) {
       //submit screen
       if( state.displayAnswer===false){
         articleElement.html(renderQuest);
